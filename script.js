@@ -52,8 +52,6 @@ function thumbUrl(id) {
 function filmTitle(filename) {
   return filename
     .replace(/\.[^/.]+$/, "")
-    .replace(/[_-]+/g, " ")
-    .replace(/\s+/g, " ")
     .trim();
 }
 
