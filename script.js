@@ -21,6 +21,8 @@ let films = [
 ];
 
 const grid = document.querySelector("#film-grid");
+const workHeading = document.querySelector(".section-heading");
+const workTitle = document.querySelector("#work-title");
 const workCount = document.querySelector("#work-count");
 const filters = document.querySelectorAll(".filter");
 const searchLayer = document.querySelector("#search-layer");
@@ -108,6 +110,9 @@ async function refreshLiveDriveGallery() {
 
 function renderFilms() {
   const visibleFilms = filteredFilms();
+  const isWeddingView = activeFilter === "wedding";
+  workHeading.classList.toggle("is-wedding-view", isWeddingView);
+  workTitle.textContent = isWeddingView ? "Wedding films" : "Selected work";
   workCount.textContent = `${visibleFilms.length} ${visibleFilms.length === 1 ? "film" : "films"}`;
   if (!visibleFilms.length) {
     grid.innerHTML = `<p class="empty-state">No films match that search.</p>`;

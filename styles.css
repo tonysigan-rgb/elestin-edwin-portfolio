@@ -46,6 +46,8 @@ h1 em { font-weight: 500; }
 
 .work-section { padding: clamp(5rem, 10vw, 10rem) clamp(1.25rem, 4vw, 4.75rem); background: var(--paper); color: var(--ink); }
 .section-heading { display: flex; justify-content: space-between; gap: 2rem; align-items: end; padding-bottom: 2.2rem; border-bottom: 1px solid rgba(13,23,32,.2); }
+.section-heading.is-wedding-view { position: relative; justify-content: center; text-align: center; }
+.section-heading.is-wedding-view .work-count { position: absolute; right: 0; bottom: 2.2rem; }
 .section-heading .eyebrow, .about .eyebrow { color: #8d6332; }
 h2 { margin: .7rem 0 0; font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4.6rem); font-weight: 500; letter-spacing: -.055em; line-height: .96; }
 .work-count { margin: 0; color: #637079; font-family: var(--mono); font-size: .64rem; letter-spacing: .06em; white-space: nowrap; }
