@@ -6,5 +6,5 @@
   checked-in portfolio list as the fallback.
 */
 window.DRIVE_GALLERY_CONFIG = {
-  apiKey: "",
+  apiKey: "AIzaSyDpdNVNAfw4UW4VqWQ9Aq1VjE0-crdGNVg",
 };
