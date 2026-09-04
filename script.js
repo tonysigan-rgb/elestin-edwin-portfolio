@@ -51,6 +51,11 @@ function thumbUrl(id, version = "") {
   return `https://drive.google.com/thumbnail?${params}`;
 }
 
+function generatedThumbUrl(film) {
+  const version = film.thumbnailVersion ? `?v=${encodeURIComponent(film.thumbnailVersion)}` : "";
+  return `assets/live-thumbnails/${film.id}.jpg${version}`;
+}
+
 function filmTitle(filename) {
   return filename
     .replace(/\.[^/.]+$/, "")
@@ -110,7 +115,7 @@ function renderFilms() {
   }
   grid.innerHTML = visibleFilms.map((film) => `
     <button class="film-card" data-film-id="${film.id}" type="button" aria-label="Play ${film.title}">
-      <img src="${thumbUrl(film.id, film.thumbnailVersion)}" alt="" loading="lazy" />
+      <img src="${generatedThumbUrl(film)}" data-fallback-src="${thumbUrl(film.id, film.thumbnailVersion)}" alt="" loading="lazy" />
       <span class="card-play" aria-hidden="true"><span class="play-symbol"></span></span>
       <span class="film-card-content">
         <span class="film-card-type">${film.display}</span>
@@ -120,7 +125,15 @@ function renderFilms() {
   `).join("");
 
   grid.querySelectorAll("img").forEach((image) => {
-    image.addEventListener("error", () => image.closest(".film-card").classList.add("no-image"), { once: true });
+    image.addEventListener("error", () => {
+      const fallback = image.dataset.fallbackSrc;
+      if (fallback) {
+        delete image.dataset.fallbackSrc;
+        image.src = fallback;
+        return;
+      }
+      image.closest(".film-card").classList.add("no-image");
+    });
   });
 }
 

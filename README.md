@@ -18,6 +18,12 @@ For visitors to play the videos, each Drive file must remain shared as **Anyone 
 
 The key is intentionally blank until it is supplied. Do not use an unrestricted key or an OAuth client secret in this public repository.
 
+## 30-second video thumbnails
+
+The portfolio first looks for a generated still from 00:30 in each video, then falls back to Google Drive's own preview while that still is being created. The GitHub Actions workflow runs every five minutes (the shortest interval GitHub Actions supports) and only generates a new thumbnail for a newly uploaded or modified video.
+
+To activate that job, create a Google Cloud **service account** with the Google Drive API enabled, create a JSON key for it, and share all three video folders with the service account email as a **Viewer**. Add the whole JSON key as the repository Actions secret named `DRIVE_SERVICE_ACCOUNT_JSON`. Keep that JSON out of the repository.
+
 ## Publish with GitHub Pages
 
 This is a dependency-free static site. In GitHub, open **Settings → Pages**, choose **Deploy from a branch**, then select the repository's `main` branch and the `/ (root)` folder.
