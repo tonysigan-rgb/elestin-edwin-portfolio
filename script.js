@@ -119,7 +119,6 @@ grid.addEventListener("click", (event) => {
   const card = event.target.closest("[data-film-id]");
   if (card) openPlayer(card.dataset.filmId);
 });
-document.querySelector(".featured-film").addEventListener("click", (event) => openPlayer(event.currentTarget.dataset.filmId));
 document.querySelector("#open-search").addEventListener("click", openSearch);
 document.querySelector("#close-search").addEventListener("click", closeSearch);
 document.querySelector("#close-player").addEventListener("click", closePlayer);

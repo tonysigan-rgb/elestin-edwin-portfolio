@@ -39,15 +39,10 @@ h1 em { font-weight: 500; }
 .text-link { display: inline-flex; gap: .9rem; width: fit-content; padding-bottom: .35rem; border-bottom: 1px solid currentColor; text-decoration: none; font-family: var(--mono); font-size: .66rem; letter-spacing: .05em; transition: color .2s; }
 .text-link:hover, .text-link:focus { color: var(--sand); }
 
-.featured-film { position: relative; min-height: 36rem; overflow: hidden; border: 0; background: #273640; text-align: left; cursor: pointer; }
-.featured-film img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .65s cubic-bezier(.2,.8,.2,1); }
-.featured-film:hover img, .featured-film:focus-visible img { transform: scale(1.035); }
-.featured-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7, 14, 20, .08) 30%, rgba(7, 14, 20, .8)); }
-.watch-badge { position: absolute; top: 50%; left: 50%; display: inline-flex; gap: .7rem; align-items: center; translate: -50% -50%; padding: .85rem 1rem; border: 1px solid rgba(255,255,255,.72); border-radius: 2rem; background: rgba(10,17,23,.26); backdrop-filter: blur(8px); font-family: var(--mono); font-size: .65rem; white-space: nowrap; letter-spacing: .04em; }
-.play-symbol { width: 0; height: 0; margin-left: .14rem; border-top: .3rem solid transparent; border-bottom: .3rem solid transparent; border-left: .48rem solid currentColor; }
-.featured-meta { position: absolute; right: clamp(1.25rem, 4vw, 4rem); bottom: 2.8rem; left: clamp(1.25rem, 4vw, 4rem); display: flex; flex-direction: column; gap: .35rem; }
-.featured-meta strong { font-family: var(--serif); font-size: clamp(1.55rem, 2.5vw, 2.5rem); font-weight: 500; letter-spacing: -.035em; }
-.featured-meta small { color: rgba(255,255,255,.72); font-family: var(--mono); font-size: .59rem; letter-spacing: .08em; text-transform: uppercase; }
+.hero-portrait { position: relative; min-height: 36rem; margin: 0; overflow: hidden; background: #273640; }
+.hero-portrait img { width: 100%; height: 100%; min-height: 36rem; object-fit: cover; object-position: center 52%; }
+.hero-portrait::after { position: absolute; inset: 0; content: ""; background: linear-gradient(180deg, rgba(7, 14, 20, .02) 48%, rgba(7, 14, 20, .72)); }
+.hero-portrait figcaption { position: absolute; z-index: 1; right: clamp(1.25rem, 4vw, 4rem); bottom: 2.6rem; left: clamp(1.25rem, 4vw, 4rem); font-family: var(--serif); font-size: clamp(1.55rem, 2.5vw, 2.5rem); font-weight: 500; letter-spacing: -.035em; }
 
 .work-section { padding: clamp(5rem, 10vw, 10rem) clamp(1.25rem, 4vw, 4.75rem); background: var(--paper); color: var(--ink); }
 .section-heading { display: flex; justify-content: space-between; gap: 2rem; align-items: end; padding-bottom: 2.2rem; border-bottom: 1px solid rgba(13,23,32,.2); }
@@ -65,6 +60,7 @@ h2 { margin: .7rem 0 0; font-family: var(--serif); font-size: clamp(2.5rem, 5vw,
 .film-card-content { position: relative; z-index: 1; width: 100%; }
 .film-card-type { display: block; margin-bottom: .45rem; font-family: var(--mono); font-size: .54rem; letter-spacing: .11em; text-transform: uppercase; opacity: .82; }
 .film-card-title { display: block; max-width: 16ch; font-family: var(--serif); font-size: clamp(1.2rem, 1.7vw, 1.65rem); font-weight: 500; letter-spacing: -.035em; line-height: 1; }
+.play-symbol { width: 0; height: 0; margin-left: .14rem; border-top: .3rem solid transparent; border-bottom: .3rem solid transparent; border-left: .48rem solid currentColor; }
 .card-play { position: absolute; z-index: 1; top: 1rem; right: 1rem; display: grid; width: 2rem; height: 2rem; place-items: center; border: 1px solid rgba(255,255,255,.75); border-radius: 50%; background: rgba(12,20,24,.24); opacity: 0; transition: opacity .2s; }
 .film-card:hover .card-play, .film-card:focus-visible .card-play { opacity: 1; }
 .film-card.no-image { background: #354a55; }
@@ -106,7 +102,7 @@ kbd { padding: .1rem .3rem; border: 1px solid #94a0a1; border-radius: .2rem; fon
   .hero { min-height: 0; grid-template-columns: 1fr; }
   .hero-copy { min-height: 42rem; padding: 9rem 1.3rem 4.5rem; }
   h1 { font-size: clamp(3.55rem, 15vw, 5.5rem); }
-  .featured-film { min-height: 30rem; }
+  .hero-portrait, .hero-portrait img { min-height: 30rem; }
   .film-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
   .film-card { padding: .85rem; aspect-ratio: .84; }
   .film-card-title { font-size: 1.25rem; }
