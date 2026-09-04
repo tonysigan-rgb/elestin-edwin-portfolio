@@ -14,9 +14,9 @@ For visitors to play the videos, each Drive file must remain shared as **Anyone 
 
 ## Live Drive updates
 
-`drive-config.js` can make the film grid refresh directly from all three folders whenever the page opens, then check again every minute. Create a **browser-restricted** Google Cloud API key, enable the **Google Drive API**, restrict the key to `https://tonysigan-rgb.github.io/*`, then add the key to `drive-config.js`.
+`drive-config.js` can make the film grid refresh directly from all three folders whenever the page opens, then check again every minute. Create a **browser-restricted** Google Cloud API key, enable the **Google Drive API**, and allow `https://elestinedwin.github.io/*` in its website restrictions. Keep `https://tonysigan-rgb.github.io/*` listed too while the previous address is still in use.
 
-The key is intentionally blank until it is supplied. Do not use an unrestricted key or an OAuth client secret in this public repository.
+Do not use an unrestricted key or an OAuth client secret in this public repository.
 
 ## 30-second video thumbnails
 

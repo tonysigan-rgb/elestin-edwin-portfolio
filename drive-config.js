@@ -1,6 +1,9 @@
 /*
   Set apiKey to a browser key restricted to:
-  https://tonysigan-rgb.github.io/*
+  https://elestinedwin.github.io/*
+
+  Keep https://tonysigan-rgb.github.io/* listed too while the previous site
+  address is still in use.
 
   The key must have the Google Drive API enabled. Leaving this blank keeps the
   checked-in portfolio list as the fallback.
