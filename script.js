@@ -45,8 +45,10 @@ function filteredFilms() {
   return films.filter((film) => (activeFilter === "all" || film.category === activeFilter) && film.title.toLowerCase().includes(query));
 }
 
-function thumbUrl(id) {
-  return `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
+function thumbUrl(id, version = "") {
+  const params = new URLSearchParams({ id, sz: "w1000" });
+  if (version) params.set("v", version);
+  return `https://drive.google.com/thumbnail?${params}`;
 }
 
 function filmTitle(filename) {
@@ -63,7 +65,7 @@ async function readDriveFolder(folder) {
     const params = new URLSearchParams({
       key: liveDriveConfig.apiKey,
       q: `'${folder.id}' in parents and trashed = false`,
-      fields: "nextPageToken,files(id,name,mimeType,createdTime)",
+      fields: "nextPageToken,files(id,name,mimeType,createdTime,modifiedTime)",
       orderBy: "createdTime desc",
       pageSize: "100",
     });
@@ -84,6 +86,7 @@ async function readDriveFolder(folder) {
       title: filmTitle(file.name),
       category: folder.category,
       display: folder.display,
+      thumbnailVersion: file.modifiedTime,
     }));
 }
 
@@ -107,7 +110,7 @@ function renderFilms() {
   }
   grid.innerHTML = visibleFilms.map((film) => `
     <button class="film-card" data-film-id="${film.id}" type="button" aria-label="Play ${film.title}">
-      <img src="${thumbUrl(film.id)}" alt="" loading="lazy" />
+      <img src="${thumbUrl(film.id, film.thumbnailVersion)}" alt="" loading="lazy" />
       <span class="card-play" aria-hidden="true"><span class="play-symbol"></span></span>
       <span class="film-card-content">
         <span class="film-card-type">${film.display}</span>
