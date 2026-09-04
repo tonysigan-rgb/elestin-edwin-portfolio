@@ -1,4 +1,4 @@
-const films = [
+let films = [
   { id: "1GHPriOUqiOhudraP3o0Z_BkRGoj3zdGI", title: "Jacque & Georgiana", category: "wedding", display: "Wedding" },
   { id: "1vz0wHX5EdcLpxkm7GvYhNmIExgsFH16M", title: "Patrick & Vanessa — Full Film", category: "wedding", display: "Wedding" },
   { id: "1WUR0P8pzDcHoH0EBpWYH-4cKVt0pgsN7", title: "A quiet celebration", category: "wedding", display: "Wedding" },
@@ -30,6 +30,12 @@ const playerFrame = document.querySelector("#player-frame");
 const playerTitle = document.querySelector("#player-title");
 const playerCategory = document.querySelector("#player-category");
 const playerPosition = document.querySelector("#player-position");
+const liveDriveConfig = window.DRIVE_GALLERY_CONFIG;
+const liveDriveFolders = [
+  { id: "1Q9ggNqy97KpFJl_OSEyClvQ4CvUNb3eP", category: "wedding", display: "Wedding" },
+  { id: "17EIbqk4WS5Gt4HNpcT4DnZuGCc-tDxGg", category: "corporate", display: "Corporate" },
+  { id: "1YrBIR_c9jiumiudIZ8sDDsPxOk52tVQf", category: "reels", display: "Reel" },
+];
 let activeFilter = "all";
 let currentFilmIndex = 0;
 let lastFocus;
@@ -41,6 +47,57 @@ function filteredFilms() {
 
 function thumbUrl(id) {
   return `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
+}
+
+function filmTitle(filename) {
+  return filename
+    .replace(/\.[^/.]+$/, "")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+async function readDriveFolder(folder) {
+  const files = [];
+  let pageToken = "";
+
+  do {
+    const params = new URLSearchParams({
+      key: liveDriveConfig.apiKey,
+      q: `'${folder.id}' in parents and trashed = false`,
+      fields: "nextPageToken,files(id,name,mimeType,createdTime)",
+      orderBy: "createdTime desc",
+      pageSize: "100",
+    });
+    if (pageToken) params.set("pageToken", pageToken);
+
+    const response = await fetch(`https://www.googleapis.com/drive/v3/files?${params}`);
+    if (!response.ok) throw new Error(`Google Drive returned ${response.status}`);
+
+    const result = await response.json();
+    files.push(...(result.files || []));
+    pageToken = result.nextPageToken || "";
+  } while (pageToken);
+
+  return files
+    .filter((file) => file.mimeType?.startsWith("video/"))
+    .map((file) => ({
+      id: file.id,
+      title: filmTitle(file.name),
+      category: folder.category,
+      display: folder.display,
+    }));
+}
+
+async function refreshLiveDriveGallery() {
+  if (!liveDriveConfig?.apiKey) return;
+
+  const groups = await Promise.all(liveDriveFolders.map(readDriveFolder));
+  const liveFilms = groups.flat();
+  if (!liveFilms.length) return;
+
+  films = liveFilms;
+  renderFilms();
 }
 
 function renderFilms() {
@@ -137,3 +194,10 @@ document.addEventListener("keydown", (event) => {
 });
 
 renderFilms();
+
+if (liveDriveConfig?.apiKey) {
+  refreshLiveDriveGallery().catch((error) => console.warn("Live Drive gallery was not refreshed:", error));
+  window.setInterval(() => {
+    refreshLiveDriveGallery().catch((error) => console.warn("Live Drive gallery was not refreshed:", error));
+  }, 60 * 1000);
+}
