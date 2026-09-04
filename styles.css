@@ -64,6 +64,7 @@ h2 { margin: .7rem 0 0; font-family: var(--serif); font-size: clamp(2.5rem, 5vw,
 .film-card-title { display: block; max-width: 16ch; font-family: var(--serif); font-size: clamp(1.2rem, 1.7vw, 1.65rem); font-weight: 500; letter-spacing: -.035em; line-height: 1; }
 .film-card--wedding { align-items: center; }
 .film-card--wedding .film-card-content { text-align: center; }
+.film-card--wedding .film-card-type { display: none; }
 .film-card--wedding .film-card-title { margin-inline: auto; }
 .play-symbol { width: 0; height: 0; margin-left: .14rem; border-top: .3rem solid transparent; border-bottom: .3rem solid transparent; border-left: .48rem solid currentColor; }
 .card-play { position: absolute; z-index: 1; top: 1rem; right: 1rem; display: grid; width: 2rem; height: 2rem; place-items: center; border: 1px solid rgba(255,255,255,.75); border-radius: 50%; background: rgba(12,20,24,.24); opacity: 0; transition: opacity .2s; }
