@@ -114,7 +114,7 @@ function renderFilms() {
     return;
   }
   grid.innerHTML = visibleFilms.map((film) => `
-    <button class="film-card" data-film-id="${film.id}" type="button" aria-label="Play ${film.title}">
+    <button class="film-card film-card--${film.category}" data-film-id="${film.id}" type="button" aria-label="Play ${film.title}">
       <img src="${generatedThumbUrl(film)}" data-fallback-src="${thumbUrl(film.id, film.thumbnailVersion)}" alt="" loading="lazy" />
       <span class="card-play" aria-hidden="true"><span class="play-symbol"></span></span>
       <span class="film-card-content">
