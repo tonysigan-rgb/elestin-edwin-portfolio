@@ -1,6 +1,6 @@
-# Elestine Edwin Portfolio
+# Elestin Edwin Portfolio
 
-A static motion portfolio for Elestine Edwin, organized into Wedding, Corporate, and Reels collections.
+A static motion portfolio for Elestin Edwin, organized into Wedding, Corporate, and Reels collections.
 
 ## Video hosting
 
